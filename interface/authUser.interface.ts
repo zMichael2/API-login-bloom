@@ -3,3 +3,8 @@ export interface authRegister {
   email: string;
   password: string;
 }
+
+export interface authLogin {
+  email: string;
+  password: string;
+}

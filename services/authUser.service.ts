@@ -1,7 +1,8 @@
 import bcryptjs from "bcryptjs";
-import { authRegister } from "../interface/authUser.interface";
 import User from "../models/user.schema";
-import { generateVerificationCode } from "../helpers/VerificationCode.helper";
+import { authLogin, authRegister } from "../interface/authUser.interface";
+import { generateVerificationCode } from "../helpers/verificationCode.helper";
+import { generateJwt } from "../helpers/generate-jwt.helper";
 
 export const registerUserService = async (
   authRegister: authRegister
@@ -19,6 +20,17 @@ export const registerUserService = async (
 
     await userRegister.save();
     return `The user ${authRegister.name} has been successfully registered`;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const loginUserService = async (authLogin: authLogin) => {
+  try {
+    const user = await User.findOne({ email: authLogin.email });
+    const token = await generateJwt(user!.email);
+    return { user: user!.name, email: user!.email, token };
   } catch (error) {
     console.log(error);
     return null;
