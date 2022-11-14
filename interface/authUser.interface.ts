@@ -8,3 +8,8 @@ export interface authLogin {
   email: string;
   password: string;
 }
+
+export interface verificateCode {
+  email: string;
+  code: string;
+}

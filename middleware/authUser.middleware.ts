@@ -7,15 +7,10 @@ export const validateUserExists = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { name, email, password } = req.body;
-  const user = await User.findOne({
-    name: name,
-    email: email,
-  });
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
   if (user) {
-    return res
-      .status(400)
-      .json({ message: "Could not register because the user already exists" });
+    return res.status(400).json({ message: "the user already exists" });
   }
   next();
 };

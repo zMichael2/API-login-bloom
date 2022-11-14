@@ -1,6 +1,10 @@
 import { Router } from "express";
 import { celebrate } from "celebrate";
-import { loginUser, registerUser } from "../controllers/auth.controller";
+import {
+  loginUser,
+  registerUser,
+  verificateUser,
+} from "../controllers/auth.controller";
 import {
   validateUserExists,
   validatorUserData,
@@ -23,6 +27,7 @@ autheticationRouter.post(
   [celebrate(userLoginValidator), validatorUserData],
   loginUser
 );
+autheticationRouter.get("/verification/:email/:code", verificateUser);
 autheticationRouter.use(celebrateError);
 
 export default autheticationRouter;

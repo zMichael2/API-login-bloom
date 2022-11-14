@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   loginUserService,
   registerUserService,
+  verficateUserServices,
 } from "../services/authUser.service";
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -22,4 +23,16 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "failed to login" });
   }
   return res.status(200).json({ data: response });
+};
+
+export const verificateUser = async (req: Request, res: Response) => {
+  const { code, email } = req.params;
+  const response = await verficateUserServices({ code, email });
+  if (!response) {
+    return res
+      .status(400)
+      .json({ message: "verification code does not match" });
+  }
+  // funcionEnviarCorreoQueYaEstaVerificado(email);
+  return res.status(200).json();
 };

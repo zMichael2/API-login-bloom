@@ -1,6 +1,10 @@
 import bcryptjs from "bcryptjs";
 import User from "../models/user.schema";
-import { authLogin, authRegister } from "../interface/authUser.interface";
+import {
+  authLogin,
+  authRegister,
+  verificateCode,
+} from "../interface/authUser.interface";
 import { generateVerificationCode } from "../helpers/verificationCode.helper";
 import { generateJwt } from "../helpers/generate-jwt.helper";
 
@@ -31,6 +35,23 @@ export const loginUserService = async (authLogin: authLogin) => {
     const user = await User.findOne({ email: authLogin.email });
     const token = await generateJwt(user!.email);
     return { user: user!.name, email: user!.email, token };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const verficateUserServices = async (
+  verificateCode: verificateCode
+): Promise<string | null> => {
+  const user = await User.findOne({ email: verificateCode.email });
+  try {
+    if (user?.verificationCode === verificateCode.code) {
+      await user.updateOne({ isActive: true });
+      return `successfully verified`;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.log(error);
     return null;
