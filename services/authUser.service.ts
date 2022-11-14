@@ -8,9 +8,7 @@ import {
 import { generateVerificationCode } from "../helpers/verificationCode.helper";
 import { generateJwt } from "../helpers/generate-jwt.helper";
 
-export const registerUserService = async (
-  authRegister: authRegister
-): Promise<string | null> => {
+export const registerUserService = async (authRegister: authRegister) => {
   try {
     const salt = bcryptjs.genSaltSync(5);
     const password = bcryptjs.hashSync(authRegister.password, salt);
@@ -23,7 +21,7 @@ export const registerUserService = async (
     });
 
     await userRegister.save();
-    return `The user ${authRegister.name} has been successfully registered`;
+    return { email: userRegister.email, code: userRegister.verificationCode };
   } catch (error) {
     console.log(error);
     return null;
