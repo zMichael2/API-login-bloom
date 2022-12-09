@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, RequestParamHandler } from "express";
 import bcryptjs from "bcryptjs";
 import User from "../models/user.schema";
 

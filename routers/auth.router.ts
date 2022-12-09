@@ -16,7 +16,6 @@ import {
 import { celebrateError } from "../middleware/celebrateError.middleware";
 
 const autheticationRouter = Router();
-
 autheticationRouter.post(
   "/register",
   [celebrate(userRegisterValidator), validateUserExists],

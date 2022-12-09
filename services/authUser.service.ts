@@ -17,6 +17,8 @@ export const registerUserService = async (authRegister: authRegister) => {
       name: authRegister.name,
       email: authRegister.email,
       password: password,
+      image: authRegister.image,
+      rol: authRegister.rol,
       verificationCode: generateVerificationCode(),
     });
 
@@ -32,7 +34,7 @@ export const loginUserService = async (authLogin: authLogin) => {
   try {
     const user = await User.findOne({ email: authLogin.email });
     const token = await generateJwt(user!.email);
-    return { user: user!.name, email: user!.email, token };
+    return { user: user!.name, email: user!.email, image: user!.image, token };
   } catch (error) {
     console.log(error);
     return null;

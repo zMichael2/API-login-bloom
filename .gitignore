@@ -1,2 +1,3 @@
 node_modules/
 .env
+/middleware/validar-jwt,middleware.ts

@@ -15,6 +15,15 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "password is required"],
   },
+  image: {
+    type: String,
+  },
+  rol: {
+    type: String,
+    required: true,
+    enum: ["admin", "user"],
+    default: "user",
+  },
   isActive: {
     type: Boolean,
     default: false,

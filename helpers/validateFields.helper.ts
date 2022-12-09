@@ -4,6 +4,8 @@ export const userRegisterValidator = {
   [Segments.BODY]: Joi.object({
     name: Joi.string().min(6).required(),
     email: Joi.string().email().required(),
+    image: Joi.string(),
+    rol: Joi.string(),
     password: Joi.string().min(4).max(20).required(),
   }),
 };
